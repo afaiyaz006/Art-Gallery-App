@@ -28,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.node.ModifierNodeElement
 import androidx.compose.ui.res.painterResource
@@ -58,7 +59,10 @@ fun ArtGalleryAppLayOut(modifier: Modifier= Modifier){
 
         Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer(modifier = Modifier.weight(0.5f))
-            Row() {
+            Row(Modifier.shadow(
+                elevation = 2.0.dp,
+
+            )) {
                 ImageViewer(modifier.padding(32.dp))
             }
             Spacer(modifier = Modifier.weight(1.0f))
@@ -67,7 +71,7 @@ fun ArtGalleryAppLayOut(modifier: Modifier= Modifier){
                 ArtWorkInfo(modifier.padding(16.dp))
             }
 
-            Row(Modifier.padding(bottom=2.dp, start = 32.dp,end=32.dp)){
+            Row(Modifier.padding(bottom=10.dp, start = 32.dp,end=32.dp)){
                 Button(onClick = {  /*nothing*/},modifier = Modifier.weight(0.5f)) {
                     Text("Previous")
                 }
@@ -84,7 +88,7 @@ fun ArtGalleryAppLayOut(modifier: Modifier= Modifier){
 fun ImageViewer(modifier: Modifier){
     var imageValue = painterResource(R.drawable.ic_launcher_background)
     Image(
-        modifier=modifier.wrapContentSize(Alignment.Center).fillMaxHeight(0.6f).fillMaxWidth(0.9f),
+        modifier=modifier.wrapContentSize(Alignment.Center).fillMaxHeight(0.5f).fillMaxWidth(0.8f),
         painter = imageValue,
         contentScale = ContentScale.FillHeight,
         contentDescription = null
@@ -104,13 +108,13 @@ fun ArtWorkInfo(modifier: Modifier){
     }
 }
 @Composable
-fun ArtAuthor(modifier: Modifier= Modifier){
+fun ArtAuthor(modifier: Modifier= Modifier,year:Int=2027,painter:String="Faiyaz"){
     Row(){
         Text(
-            text="Franz Kafka"
+            text=painter
         )
         Text(
-            text="(2017)"
+            text= "($year)"
         )
     }
 }
