@@ -2,6 +2,7 @@ package com.example.art_gallery_app
 
 
 import android.os.Bundle
+import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -30,6 +31,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.node.ModifierNodeElement
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,6 +46,7 @@ class MainActivity : ComponentActivity() {
             ArtGalleryAppTheme {
                 Surface(){
                     ArtGalleryAppLayOut(
+
                     )
                 }
             }
@@ -53,19 +57,23 @@ class MainActivity : ComponentActivity() {
 fun ArtGalleryAppLayOut(modifier: Modifier= Modifier){
 
         Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+            Spacer(modifier = Modifier.weight(0.5f))
             Row() {
                 ImageViewer(modifier.padding(32.dp))
             }
-            Spacer(modifier = Modifier.height(20.dp))
-            Row(){
-                ArtWorkInfo(modifier)
+            Spacer(modifier = Modifier.weight(1.0f))
+
+            Row(Modifier.padding(32.dp)){
+                ArtWorkInfo(modifier.padding(16.dp))
             }
-            Row(){
-                Button(onClick = {  /*nothing*/}) {
-                    Text("Filled")
+
+            Row(Modifier.padding(bottom=2.dp, start = 32.dp,end=32.dp)){
+                Button(onClick = {  /*nothing*/},modifier = Modifier.weight(0.5f)) {
+                    Text("Previous")
                 }
-                Button(onClick = {  /*nothing*/}) {
-                    Text("Filled")
+                Spacer(modifier = Modifier.weight(0.2f))
+                Button(onClick = {  /*nothing*/},modifier = Modifier.weight(0.5f)) {
+                    Text("Next")
                 }
             }
         }
@@ -76,7 +84,7 @@ fun ArtGalleryAppLayOut(modifier: Modifier= Modifier){
 fun ImageViewer(modifier: Modifier){
     var imageValue = painterResource(R.drawable.ic_launcher_background)
     Image(
-        modifier=modifier.wrapContentSize(Alignment.Center).height(350.dp).width(250.dp),
+        modifier=modifier.wrapContentSize(Alignment.Center).fillMaxHeight(0.6f).fillMaxWidth(0.9f),
         painter = imageValue,
         contentScale = ContentScale.FillHeight,
         contentDescription = null
@@ -84,17 +92,28 @@ fun ImageViewer(modifier: Modifier){
 }
 @Composable
 fun ArtWorkInfo(modifier: Modifier){
-    Column(){
+    Column(modifier){
         Text(
-            text="Artwork title",
+            text="Still life of blue rose and other flowers",
+            fontSize = 25.sp,
+            lineHeight = 32.sp,
+            fontWeight = FontWeight.Light
 
         )
+        ArtAuthor()
+    }
+}
+@Composable
+fun ArtAuthor(modifier: Modifier= Modifier){
+    Row(){
         Text(
-            text="Artwork artist"
+            text="Franz Kafka"
+        )
+        Text(
+            text="(2017)"
         )
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
